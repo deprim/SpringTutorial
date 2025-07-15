@@ -7,13 +7,106 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="musicBean"
-          class="org.example.ClassicalMusic">
+    <!--
+        We can use an external configuration file to
+        provide values for our variables. To do this, we need
+        to create a file with a .properties extension inside the
+        resources folder, and write the data in key=value format.
+
+        This allows us to externalize configuration and avoid
+        hardcoding values directly in the XML file.
+    -->
+
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+    <!--
+         DEPENDENCY INJECTION THROUGH CONSTRUCTOR
+
+        This is similar to creating an object in Java:
+        Music music = new ClassicalMusic();
+
+        But with Spring we will write like:
+        Music music = context.getBean("musicBean", Music.class);
+
+        <bean id="musicBean" class="org.example.ClassicalMusic"/>
+    -->
+
+    <bean id="musicBeanClassical" class="org.example.ClassicalMusic"/>
+    <bean id="musicBeanRap" class="org.example.RapMusic"/>
+    <bean id="musicBeanRock" class="org.example.RockMusic"/>
+
+
+    <!--
+         DEPENDENCY INJECTION THROUGH REFERENCE
+
+         This also creates an object (MusicPlayer)
+         and passes the previously defined bean (musicBean)
+         to its constructor. In our case, musicBean is a ClassicalMusic object.
+
+         In plain Java, this would look like:
+         Music music = new ClassicalMusic();
+         MusicPlayer musicPlayer1 = new MusicPlayer(music);
+
+         But with Spring we can do like:
+         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+
+         <bean id="musicPlayer"
+          class="org.example.MusicPlayer">
+        <constructor-arg ref="musicBean"/>
+        </bean>
+    -->
+
+    <!--
+        DEPENDENCY INJECTION THROUGH SETTER
+
+        When we want to pass a dependency via a setter method,
+        we use the <property> tag. In the 'name' attribute, we
+        specify the name of the property (not the method name),
+        and Spring will automatically call the corresponding setter.
+
+        For example, if there is a method setMusic(...),
+        we just use name="music".
+
+        In plain Java, this would look like:
+        MusicPlayer musicPlayer1 = new MusicPlayer();
+        musicPlayer1.setMusic(new RapMusic());
+        musicPlayer1.playMusic();
+
+        To inject simple values (like Strings or numbers),
+        we also use the <property> tag. In the 'name' attribute,
+        we specify the property name, and in the 'value' attribute
+        we provide the data to inject.
+
+        Also, external configuration file was used here,
+        where we provided some values for our variables.
+
+        In plain Java code would look like:
+        MusicPlayer musicPlayer1 = new MusicPlayer();
+
+        <bean id="musicPlayer"
+          class="org.example.MusicPlayer">
+        <property name="music" ref="musicBean"/>
+
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
     </bean>
+
+
+    -->
+
 
     <bean id="musicPlayer"
           class="org.example.MusicPlayer">
-        <constructor-arg ref="musicBean"/>
+         <property name="musicList">
+            <list>
+                <ref bean="musicBeanClassical"/>
+                <ref bean="musicBeanRap"/>
+                <ref bean="musicBeanRock"/>
+            </list>
+
+         </property>
+
     </bean>
+
 
 </beans>
