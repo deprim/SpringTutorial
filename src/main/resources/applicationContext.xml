@@ -17,7 +17,17 @@
         hardcoding values directly in the XML file.
     -->
 
-    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+<!--    <context:property-placeholder location="classpath:musicPlayer.properties"/>-->
+
+
+    <context:component-scan base-package="org.example"/>
+
+<!--    <bean id="musicBean"-->
+<!--          class="org.example.ClassicalMusic"-->
+<!--          init-method="doMyInit"-->
+<!--          destroy-method="doMyDestroy"-->
+<!--          factory-method="getInstance"-->
+<!--    />-->
 
     <!--
          DEPENDENCY INJECTION THROUGH CONSTRUCTOR
@@ -31,9 +41,9 @@
         <bean id="musicBean" class="org.example.ClassicalMusic"/>
     -->
 
-    <bean id="musicBeanClassical" class="org.example.ClassicalMusic"/>
-    <bean id="musicBeanRap" class="org.example.RapMusic"/>
-    <bean id="musicBeanRock" class="org.example.RockMusic"/>
+<!--    <bean id="musicBeanClassical" class="org.example.ClassicalMusic"/>-->
+<!--    <bean id="musicBeanRap" class="org.example.RapMusic"/>-->
+<!--    <bean id="musicBeanRock" class="org.example.RockMusic"/>-->
 
 
     <!--
@@ -95,18 +105,18 @@
     -->
 
 
-    <bean id="musicPlayer"
-          class="org.example.MusicPlayer">
-         <property name="musicList">
-            <list>
-                <ref bean="musicBeanClassical"/>
-                <ref bean="musicBeanRap"/>
-                <ref bean="musicBeanRock"/>
-            </list>
+<!--    <bean id="musicPlayer"-->
+<!--          class="org.example.MusicPlayer">-->
+<!--         <property name="musicList">-->
+<!--            <list>-->
+<!--                <ref bean="musicBeanClassical"/>-->
+<!--                <ref bean="musicBeanRap"/>-->
+<!--                <ref bean="musicBeanRock"/>-->
+<!--            </list>-->
 
-         </property>
+<!--         </property>-->
 
-    </bean>
+<!--    </bean>-->
 
 
 </beans>

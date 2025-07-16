@@ -22,9 +22,55 @@ public class TestSpring {
         // Music music = context.getBean("musicBean", Music.class);
         // MusicPlayer musicPlayer = new MusicPlayer(music);
 
-        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class); // Spring will create
+//        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class); // Spring will create
                                                                                             // dependency and injection by himself
-        musicPlayer.playMusic();
+//        musicPlayer.playMusic();
+
+
+//       Lesson 9. Anotation @Component
+//        Music classicalMusic = context.getBean("classicalMusic", Music.class);
+//        MusicPlayer musicPlayer = new  MusicPlayer(classicalMusic);
+//        musicPlayer.playMusic();
+//
+//        Music rockMusic = context.getBean("rockMusic", Music.class);
+//        MusicPlayer musicPlayer2 = new  MusicPlayer(rockMusic);
+//        musicPlayer2.playMusic();
+//
+//        Music rapMusic = context.getBean("rapMusic", Music.class);
+//        MusicPlayer musicPLayer3 = new  MusicPlayer(rapMusic);
+//        musicPLayer3.playMusic();
+
+//        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+//        musicPlayer.playMusic();
+
+
+
+//        NESTED DEPENDENCY
+
+//        In plain Java code
+//        ClassicalMusic music = new ClassicalMusic();
+//        RockMusic music1 = new RockMusic();
+
+//                      ↑
+//                  depends on
+//                      ↑
+//
+//        MusicPlayer musicPlayer = new MusicPlayer(music, music1);
+//
+//                      ↑
+//                  depends on
+//                      ↑
+//
+//        Computer computer = new Computer(musicPlayer);
+//
+//        System.out.println(computer);
+//
+//
+
+//        With Spring:
+        Computer computer1 = context.getBean("computer", Computer.class);
+        System.out.println(computer1);
+
 
 //        System.out.println(musicPlayer.getName());
 //        System.out.println(musicPlayer.getVolume());
