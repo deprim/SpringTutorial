@@ -3,6 +3,8 @@ package org.example;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ClassicalMusic implements Music {
 
@@ -15,8 +17,8 @@ public class ClassicalMusic implements Music {
     }
 
     @Override
-    public String getSong() {
-        return "Hungarian Rhapsody";
+    public List<String> getSong() {
+        return List.of("Hungarian Raphsody", "7th Symphony", "Times of year");
     }
 
     public void doMyInit(){

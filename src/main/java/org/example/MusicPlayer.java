@@ -1,27 +1,30 @@
 package org.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class MusicPlayer {
 //
 //  private List<Music> musicList = new ArrayList<>();
+    private Music music1;
+    private Music music2;
 
-
-    private ClassicalMusic classicalMusic;
-    private RockMusic rockMusic;
+    @Autowired
+    public MusicPlayer(@Qualifier("rockMusic") Music music1,
+                       @Qualifier("classicalMusic") Music music2) {
+        this.music1 = music1;
+        this.music2 = music2;
+    }
 //    private String name;
 //    private int volume;
 
-    @Autowired
-    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic) {
-        this.classicalMusic = classicalMusic;
-        this.rockMusic = rockMusic;
-    }
+
 
     // IoC - Ivension of Control
 
@@ -44,8 +47,16 @@ public class MusicPlayer {
 //
 //    }
 
-    public String playMusic() {
-        return "Playing : " + classicalMusic.getSong();
+    public String playMusic(MusicEnum musicEnum) {
+        Random random = new Random();
+        int musicSize1 = music1.getSong().size();
+        int musicSize2 = music2.getSong().size();
+        if (musicEnum == MusicEnum.CLASSICAL){
+            return music1.getSong().get(random.nextInt(musicSize1));
+        }
+        else {
+            return music2.getSong().get(random.nextInt(musicSize2));
+        }
 
     }
 //
